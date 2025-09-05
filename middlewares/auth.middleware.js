@@ -3,7 +3,7 @@ import { verifyToken } from "../utils/jwt.js";
 
 export const requireAuth = async (req, res, next) => {
   const hdr = req.headers.authorization;
-  if (!hdr?.startsWith("Bearer ")) return res.status(401).json({ error: "NO_TOKEN" });
+  if (!hdr?.startsWith("Bearer ")) return res.status(401).json({ error: "ليس لديك الصلاحية" });
 
   try {
     const token = hdr.slice(7);
@@ -11,12 +11,12 @@ export const requireAuth = async (req, res, next) => {
 
     const user = await prisma.user.findUnique({ where: { id: payload.sub } });
     if (!user || !user.currentSessionId || user.currentSessionId !== payload.sid) {
-      return res.status(401).json({ error: "SESSION_REVOKED" });
+      return res.status(401).json({ error: "تم إلغاء الجلسة" });
     }
 
     req.user = { id: user.id, role: user.role };
     next();
   } catch {
-    return res.status(401).json({ error: "INVALID_TOKEN" });
+    return res.status(401).json({ error: "رمز غير صالح" });
   }
 };

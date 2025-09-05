@@ -11,10 +11,10 @@ export const registerUser = async (phone, password, name, birthDate, avatarUrl) 
     where: { phone, used: true },
     orderBy: { createdAt: "desc" }
   });
-  if (!otp) throw new Error("PHONE_NOT_VERIFIED");
+  if (!otp) throw new Error("لم يتم التحقق من الهاتف");
 
   if (!name || !birthDate || !password) {
-    throw new Error("MISSING_REQUIRED_FIELDS");
+    throw new Error("الحقول المطلوبة المفقودة");
   }
 
   const passwordHash = await hashPassword(password);
@@ -35,11 +35,11 @@ export const registerUser = async (phone, password, name, birthDate, avatarUrl) 
 
 export const loginUser = async (phone, password, ua, ip) => {
   const user = await prisma.user.findUnique({ where: { phone } });
-  if (!user) throw new Error("INVALID_CREDENTIALS");
-  if (!user.isVerified) throw new Error("PHONE_NOT_VERIFIED");
+  if (!user) throw new Error("رقم الهاتف أو كلمة المرور خاطئة");
+  if (!user.isVerified) throw new Error("لم يتم التحقق من الهاتف");
 
   const ok = await comparePassword(password, user.passwordHash);
-  if (!ok) throw new Error("INVALID_CREDENTIALS");
+  if (!ok) throw new Error("رقم الهاتف أو كلمة المرور خاطئة");
 
   const session = await prisma.session.create({
     data: { userId: user.id, userAgent: ua, ip }

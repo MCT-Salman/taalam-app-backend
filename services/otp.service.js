@@ -22,8 +22,8 @@ export const verifyOtp = async (phone, code) => {
     orderBy: { createdAt: "desc" }
   });
 
-  if (!otp) throw new Error("OTP_INVALID");
-  if (otp.expiresAt < new Date()) throw new Error("OTP_EXPIRED");
+  if (!otp) throw new Error("OTP غير صالح");
+  if (otp.expiresAt < new Date()) throw new Error("انتهت صلاحية رمز OTP");
 
   await prisma.otpCode.update({
     where: { id: otp.id },

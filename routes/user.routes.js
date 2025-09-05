@@ -5,7 +5,7 @@ const r = Router();
 
 r.get("/me", requireAuth, (req, res) => {
   res.json({
-    message: "Welcome to your profile!",
+    message: "مرحباً بكم في ملفك الشخصي!",
     user: req.user
   });
 });
