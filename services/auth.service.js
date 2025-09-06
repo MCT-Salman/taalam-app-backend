@@ -51,7 +51,7 @@ export const loginUser = async (phone, password, ua, ip) => {
   });
 
   const token = generateToken({
-    sub: user.id,
+    id: user.id,
     sid: session.id,
     role: user.role
   });

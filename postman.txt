@@ -3,3 +3,4 @@ https://documenter.getpostman.com/view/37897699/2sB3HkpfQa#3bc10a57-b31b-4204-bd
 
 npx prisma generate
 npx prisma migrate deploy
+npx prisma studio

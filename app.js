@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import otpRoutes from "./routes/otp.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/otp", otpRoutes);
 
 // Protected
+app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
 
 app.get("/health", (req, res) => res.json({ ok: true }));
