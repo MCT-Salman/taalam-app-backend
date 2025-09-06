@@ -1,2 +1,5 @@
 https://documenter.getpostman.com/view/47317298/2sB3HjN2S2
 https://documenter.getpostman.com/view/37897699/2sB3HkpfQa#3bc10a57-b31b-4204-bdaa-a35038cbacd6
+
+npx prisma generate
+npx prisma migrate deploy
