@@ -13,7 +13,7 @@ export const sendOtp = async (phone) => {
   });
 
   console.log(`📩 OTP to ${phone}: ${code}`);
-  return { success: true, message: "OTP sent" };
+  return { success: true, message: "OTP تم إرسال رمز" };
 };
 
 export const verifyOtp = async (phone, code) => {
@@ -23,7 +23,7 @@ export const verifyOtp = async (phone, code) => {
   });
 
   if (!otp) throw new Error("OTP غير صالح");
-  if (otp.expiresAt < new Date()) throw new Error("انتهت صلاحية رمز OTP");
+  if (otp.expiresAt < new Date()) throw new Error(" OTP انتهت صلاحية رمز");
 
   await prisma.otpCode.update({
     where: { id: otp.id },

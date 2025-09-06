@@ -17,6 +17,6 @@ export const requireAuth = async (req, res, next) => {
     req.user = { id: user.id, role: user.role };
     next();
   } catch {
-    return res.status(401).json({ error: "رمز غير صالح" });
+    return res.status(401).json({ error: "رمز الجلسة غير صالح" });
   }
 };

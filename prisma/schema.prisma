@@ -21,6 +21,8 @@ model User {
   birthDate    DateTime
   avatarUrl    String?
   role         Role      @default(STUDENT)
+  sex          String
+  country      String
   isVerified   Boolean   @default(false)
   isActive     Boolean   @default(true)
 

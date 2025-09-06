@@ -3,7 +3,7 @@ import { hashPassword } from "../utils/hash.js";
 
 export const createSubAdmin = async (phone, password, name, birthDate) => {
   const exists = await prisma.user.findUnique({ where: { phone } });
-  if (exists) throw new Error("PHONE_TAKEN");
+  if (exists) throw new Error("رقم الهاتف موجود مسبقا");
 
   const passwordHash = await hashPassword(password);
   const user = await prisma.user.create({
@@ -23,7 +23,7 @@ export const createSubAdmin = async (phone, password, name, birthDate) => {
 
 export const setUserRole = async (userId, role) => {
   const validRoles = ["STUDENT", "ADMIN", "SUBADMIN"];
-  if (!validRoles.includes(role)) throw new Error("INVALID_ROLE");
+  if (!validRoles.includes(role)) throw new Error("هذا الدور غير فعال");
 
   return prisma.user.update({
     where: { id: userId },

@@ -31,7 +31,7 @@ export const updateProfile = async (req, res) => {
     if (password && newPassword) {
       const user = await prisma.user.findUnique({ where: { id: req.user.id } });
       const valid = await comparePassword(password, user.passwordHash);
-      if (!valid) throw new Error("INVALID_PASSWORD");
+      if (!valid) throw new Error("كلمة المرور السابقة غير صحيحة");
 
       const newHash = await hashPassword(newPassword);
       await prisma.user.update({
@@ -68,7 +68,7 @@ export const updateProfile = async (req, res) => {
 
 export const updateAvatar = async (req, res) => {
   try {
-    if (!req.file) throw new Error("NO_FILE");
+    if (!req.file) throw new Error("لم يتم رفع الصورة");
 
     const avatarUrl = `/uploads/avatars/${req.file.filename}`;
 

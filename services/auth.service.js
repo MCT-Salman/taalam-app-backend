@@ -2,9 +2,9 @@ import prisma from "../prisma/client.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 import { generateToken } from "../utils/jwt.js";
 
-export const registerUser = async (phone, password, name, birthDate, avatarUrl) => {
+export const registerUser = async (phone, password, name, birthDate,sex, avatarUrl) => {
   const exists = await prisma.user.findUnique({ where: { phone } });
-  if (exists) throw new Error("PHONE_TAKEN");
+  if (exists) throw new Error("رقم الهاتف موجود مسبقا");
 
   // نتأكد أن الرقم تم التحقق منه قبل التسجيل
   const otp = await prisma.otpCode.findFirst({
@@ -23,6 +23,7 @@ export const registerUser = async (phone, password, name, birthDate, avatarUrl) 
       phone,
       passwordHash,
       name,
+      sex,
       birthDate: new Date(birthDate),
       avatarUrl: avatarUrl || null,
       isVerified: true
